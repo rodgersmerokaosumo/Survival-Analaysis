@@ -1,0 +1,708 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Analysis},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Analysis}
+\author{}
+\date{\vspace{-2.5em}2023-05-29}
+
+\begin{document}
+\maketitle
+
+\hypertarget{data-import}{%
+\subsubsection{Data Import}\label{data-import}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Specify the file path}
+\NormalTok{file\_path }\OtherTok{\textless{}{-}} \StringTok{"echocardiogram.data"}
+
+\CommentTok{\# Read the file into a data frame}
+\NormalTok{data }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(file\_path, }\AttributeTok{header =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{na.strings =} \StringTok{"?"}\NormalTok{)}
+
+\CommentTok{\# Assuming \textasciigrave{}data\textasciigrave{} is your data frame}
+\NormalTok{column\_names }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"survival"}\NormalTok{, }\StringTok{"still{-}alive"}\NormalTok{, }\StringTok{"age{-}at{-}heart{-}attack"}\NormalTok{, }\StringTok{"pericardial{-}effusion"}\NormalTok{, }\StringTok{"fractional{-}shortening"}\NormalTok{, }\StringTok{"epss"}\NormalTok{, }\StringTok{"lvdd"}\NormalTok{, }\StringTok{"wall{-}motion{-}score"}\NormalTok{, }\StringTok{"wall{-}motion{-}index"}\NormalTok{, }\StringTok{"mult"}\NormalTok{, }\StringTok{"name"}\NormalTok{, }\StringTok{"group"}\NormalTok{, }\StringTok{"alive{-}at{-}1"}\NormalTok{)}
+
+\FunctionTok{colnames}\NormalTok{(data) }\OtherTok{\textless{}{-}}\NormalTok{ column\_names}
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   survival still-alive age-at-heart-attack pericardial-effusion
+## 1       11           0                  71                    0
+## 2       19           0                  72                    0
+## 3       16           0                  55                    0
+## 4       57           0                  60                    0
+## 5       19           1                  57                    0
+## 6       26           0                  68                    0
+##   fractional-shortening   epss  lvdd wall-motion-score wall-motion-index  mult
+## 1                 0.260  9.000 4.600                14              1.00 1.000
+## 2                 0.380  6.000 4.100                14              1.70 0.588
+## 3                 0.260  4.000 3.420                14              1.00 1.000
+## 4                 0.253 12.062 4.603                16              1.45 0.788
+## 5                 0.160 22.000 5.750                18              2.25 0.571
+## 6                 0.260  5.000 4.310                12              1.00 0.857
+##   name group alive-at-1
+## 1 name     1          0
+## 2 name     1          0
+## 3 name     1          0
+## 4 name     1          0
+## 5 name     1          0
+## 6 name     1          0
+\end{verbatim}
+
+In survival analysis, the primary objective is to estimate the survival
+distribution and analyze the impact of various variables on the time it
+takes for an event to occur. This type of analysis is commonly used in
+medical research, epidemiology, and other fields where understanding
+time-to-event data is crucial. Parameter estimation in survival analysis
+involves estimating the parameters of the chosen survival distribution,
+such as the hazard function or survival function, using statistical
+methods like maximum likelihood estimation.
+
+On the other hand, the Poisson distribution is a probability
+distribution that models the number of events occurring in a fixed
+interval of time or space. It is commonly used when dealing with count
+data, such as the number of occurrences of a specific event. The Poisson
+distribution estimates the rate of event occurrence based on the average
+number of events in the given interval. Parameter estimation in the
+Poisson distribution involves estimating the rate parameter, which
+represents the average event rate.
+
+While both survival analysis and the Poisson distribution deal with
+event occurrence, they differ in their approach and focus. Survival
+analysis focuses on modeling the time until an event occurs and
+understanding the factors influencing it, whereas the Poisson
+distribution focuses on estimating the rate of event occurrence in a
+fixed interval.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Explore the structure of the dataset}
+\NormalTok{data }\OtherTok{=}\NormalTok{ data }\SpecialCharTok{|\textgreater{}} \FunctionTok{clean\_names}\NormalTok{()}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate\_all}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\FunctionTok{ifelse}\NormalTok{(. }\SpecialCharTok{==} \StringTok{"?"}\NormalTok{, }\ConstantTok{NA}\NormalTok{, .))}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{name)}
+\NormalTok{data }\SpecialCharTok{|\textgreater{}} \FunctionTok{glimpse}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Rows: 133
+## Columns: 12
+## $ survival              <dbl> 11.00, 19.00, 16.00, 57.00, 19.00, 26.00, 13.00,~
+## $ still_alive           <int> 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, ~
+## $ age_at_heart_attack   <dbl> 71.000, 72.000, 55.000, 60.000, 57.000, 68.000, ~
+## $ pericardial_effusion  <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, ~
+## $ fractional_shortening <dbl> 0.260, 0.380, 0.260, 0.253, 0.160, 0.260, 0.230,~
+## $ epss                  <dbl> 9.000, 6.000, 4.000, 12.062, 22.000, 5.000, 31.0~
+## $ lvdd                  <dbl> 4.600, 4.100, 3.420, 4.603, 5.750, 4.310, 5.430,~
+## $ wall_motion_score     <dbl> 14.00, 14.00, 14.00, 16.00, 18.00, 12.00, 22.50,~
+## $ wall_motion_index     <dbl> 1.000, 1.700, 1.000, 1.450, 2.250, 1.000, 1.875,~
+## $ mult                  <dbl> 1.000, 0.588, 1.000, 0.788, 0.571, 0.857, 0.857,~
+## $ group                 <chr> "1", "1", "1", "1", "1", "1", "1", "1", "1", "1"~
+## $ alive_at_1            <int> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, ~
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{still\_alive =} \FunctionTok{factor}\NormalTok{(still\_alive),}
+    \AttributeTok{pericardial\_effusion =} \FunctionTok{factor}\NormalTok{(pericardial\_effusion),}
+    \AttributeTok{alive\_at\_1 =} \FunctionTok{factor}\NormalTok{(alive\_at\_1),}
+    \AttributeTok{group =} \FunctionTok{factor}\NormalTok{(group)}
+\NormalTok{  )}
+
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}
+    \AttributeTok{survival =} \FunctionTok{as.numeric}\NormalTok{(survival),}
+    \AttributeTok{age\_at\_heart\_attack =} \FunctionTok{as.numeric}\NormalTok{(age\_at\_heart\_attack),}
+    \AttributeTok{fractional\_shortening =} \FunctionTok{as.numeric}\NormalTok{(fractional\_shortening),}
+    \AttributeTok{epss =} \FunctionTok{as.numeric}\NormalTok{(epss),}
+    \AttributeTok{lvdd =} \FunctionTok{as.numeric}\NormalTok{(lvdd),}
+    \AttributeTok{wall\_motion\_score =} \FunctionTok{as.numeric}\NormalTok{(wall\_motion\_score),}
+    \AttributeTok{wall\_motion\_index =} \FunctionTok{as.numeric}\NormalTok{(wall\_motion\_index),}
+    \AttributeTok{mult =} \FunctionTok{as.numeric}\NormalTok{(mult)}
+\NormalTok{  )}
+
+\FunctionTok{head}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   survival still_alive age_at_heart_attack pericardial_effusion
+## 1       11           0                  71                    0
+## 2       19           0                  72                    0
+## 3       16           0                  55                    0
+## 4       57           0                  60                    0
+## 5       19           1                  57                    0
+## 6       26           0                  68                    0
+##   fractional_shortening   epss  lvdd wall_motion_score wall_motion_index  mult
+## 1                 0.260  9.000 4.600                14              1.00 1.000
+## 2                 0.380  6.000 4.100                14              1.70 0.588
+## 3                 0.260  4.000 3.420                14              1.00 1.000
+## 4                 0.253 12.062 4.603                16              1.45 0.788
+## 5                 0.160 22.000 5.750                18              2.25 0.571
+## 6                 0.260  5.000 4.310                12              1.00 0.857
+##   group alive_at_1
+## 1     1          0
+## 2     1          0
+## 3     1          0
+## 4     1          0
+## 5     1          0
+## 6     1          0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{summary}\NormalTok{(data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     survival      still_alive age_at_heart_attack pericardial_effusion
+##  Min.   : 0.030   0   :88     Min.   :35.00       0   :107            
+##  1st Qu.: 7.875   1   :43     1st Qu.:57.00       1   : 24            
+##  Median :23.500   NA's: 2     Median :62.00       77  :  1            
+##  Mean   :22.183               Mean   :62.81       NA's:  1            
+##  3rd Qu.:33.000               3rd Qu.:67.75                           
+##  Max.   :57.000               Max.   :86.00                           
+##  NA's   :3                    NA's   :7                               
+##  fractional_shortening      epss            lvdd       wall_motion_score
+##  Min.   :0.0100        Min.   : 0.00   Min.   :2.320   Min.   : 2.00    
+##  1st Qu.:0.1500        1st Qu.: 7.00   1st Qu.:4.230   1st Qu.:11.00    
+##  Median :0.2050        Median :11.00   Median :4.650   Median :14.00    
+##  Mean   :0.2167        Mean   :12.16   Mean   :4.763   Mean   :14.44    
+##  3rd Qu.:0.2700        3rd Qu.:16.10   3rd Qu.:5.300   3rd Qu.:16.50    
+##  Max.   :0.6100        Max.   :40.00   Max.   :6.780   Max.   :39.00    
+##  NA's   :9             NA's   :16      NA's   :12      NA's   :5        
+##  wall_motion_index      mult         group    alive_at_1
+##  Min.   :1.000     Min.   :0.1400       : 1   0   :50   
+##  1st Qu.:1.000     1st Qu.:0.7140   1   :24   1   :24   
+##  Median :1.216     Median :0.7860   2   :85   2   : 1   
+##  Mean   :1.378     Mean   :0.7862   name: 1   NA's:58   
+##  3rd Qu.:1.508     3rd Qu.:0.8570   NA's:22             
+##  Max.   :3.000     Max.   :2.0000                       
+##  NA's   :3         NA's   :4
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Calculate the number of missing values in each column}
+\FunctionTok{colSums}\NormalTok{(}\FunctionTok{is.na}\NormalTok{(data))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##              survival           still_alive   age_at_heart_attack 
+##                     3                     2                     7 
+##  pericardial_effusion fractional_shortening                  epss 
+##                     1                     9                    16 
+##                  lvdd     wall_motion_score     wall_motion_index 
+##                    12                     5                     3 
+##                  mult                 group            alive_at_1 
+##                     4                    22                    58
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#impute missing values with the median}
+\NormalTok{data }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.numeric), }\SpecialCharTok{\textasciitilde{}}\FunctionTok{replace\_na}\NormalTok{(., }\FunctionTok{mean}\NormalTok{(.))))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(knitr)}
+
+\CommentTok{\# Assuming \textasciigrave{}data\textasciigrave{} is your data frame}
+
+\CommentTok{\# View the summary statistics of numeric columns}
+\NormalTok{summary\_stats }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{where}\NormalTok{(is.numeric)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summary}\NormalTok{()}
+
+\CommentTok{\# Print the summary statistics in a table using kable}
+\FunctionTok{kable}\NormalTok{(summary\_stats)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{longtable}[]{@{}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.0216}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1079}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1439}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1583}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1007}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1007}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1295}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1295}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 16\tabcolsep) * \real{0.1079}}@{}}
+\toprule()
+\begin{minipage}[b]{\linewidth}\raggedright
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+survival
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+age\_at\_heart\_attack
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+fractional\_shortening
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+epss
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+lvdd
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+wall\_motion\_score
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+wall\_motion\_index
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+mult
+\end{minipage} \\
+\midrule()
+\endhead
+& Min. : 0.030 & Min. :35.00 & Min. :0.0100 & Min. : 0.00 & Min. :2.320
+& Min. : 2.00 & Min. :1.000 & Min. :0.1400 \\
+& 1st Qu.: 7.875 & 1st Qu.:57.00 & 1st Qu.:0.1500 & 1st Qu.: 7.00 & 1st
+Qu.:4.230 & 1st Qu.:11.00 & 1st Qu.:1.000 & 1st Qu.:0.7140 \\
+& Median :23.500 & Median :62.00 & Median :0.2050 & Median :11.00 &
+Median :4.650 & Median :14.00 & Median :1.216 & Median :0.7860 \\
+& Mean :22.183 & Mean :62.81 & Mean :0.2167 & Mean :12.16 & Mean :4.763
+& Mean :14.44 & Mean :1.378 & Mean :0.7862 \\
+& 3rd Qu.:33.000 & 3rd Qu.:67.75 & 3rd Qu.:0.2700 & 3rd Qu.:16.10 & 3rd
+Qu.:5.300 & 3rd Qu.:16.50 & 3rd Qu.:1.508 & 3rd Qu.:0.8570 \\
+& Max. :57.000 & Max. :86.00 & Max. :0.6100 & Max. :40.00 & Max. :6.780
+& Max. :39.00 & Max. :3.000 & Max. :2.0000 \\
+& NA's :3 & NA's :7 & NA's :9 & NA's :16 & NA's :12 & NA's :5 & NA's :3
+& NA's :4 \\
+\bottomrule()
+\end{longtable}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualize the distribution of numeric variables}
+\NormalTok{numeric\_vars }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(data)[}\FunctionTok{sapply}\NormalTok{(data, is.numeric)]}
+\CommentTok{\# Create histograms for numeric variables}
+\NormalTok{histograms }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(numeric\_vars)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), }\AttributeTok{names\_to =} \StringTok{"Variable"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"Value"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Value)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_histogram}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Variable, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribution of Numeric Variables"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{theme\_minimal}\NormalTok{()}
+
+\CommentTok{\# Print the histograms}
+\FunctionTok{print}\NormalTok{(histograms)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 59 rows containing non-finite values (`stat_bin()`).
+\end{verbatim}
+
+\includegraphics{analysis_files/figure-latex/unnamed-chunk-8-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualize the distribution of factor variables}
+\NormalTok{factor\_vars }\OtherTok{\textless{}{-}} \FunctionTok{names}\NormalTok{(data)[}\FunctionTok{sapply}\NormalTok{(data, is.factor)]}
+
+\CommentTok{\# Create bar plots for factor variables}
+\NormalTok{barplots }\OtherTok{\textless{}{-}}\NormalTok{ data }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{select}\NormalTok{(}\FunctionTok{all\_of}\NormalTok{(factor\_vars)) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{pivot\_longer}\NormalTok{(}\FunctionTok{everything}\NormalTok{(), }\AttributeTok{names\_to =} \StringTok{"Variable"}\NormalTok{, }\AttributeTok{values\_to =} \StringTok{"Value"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{ggplot}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Value)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill =} \StringTok{"dodgerblue"}\NormalTok{, }\AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{ Variable, }\AttributeTok{scales =} \StringTok{"free"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Distribution of Factor Variables"}\NormalTok{)}\SpecialCharTok{+}\FunctionTok{theme\_minimal}\NormalTok{()}
+
+\CommentTok{\# Print the bar plots}
+\FunctionTok{print}\NormalTok{(barplots)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{analysis_files/figure-latex/unnamed-chunk-9-1.pdf}
+
+\hypertarget{what-is-the-effect-of-age-at-heart-attack-on-the-survival-time-of-heart-attack-patients}{%
+\subsubsection{What is the effect of age-at-heart-attack on the survival
+time of heart attack
+patients?}\label{what-is-the-effect-of-age-at-heart-attack-on-the-survival-time-of-heart-attack-patients}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load necessary libraries for survival analysis}
+\FunctionTok{library}\NormalTok{(survival)}
+\FunctionTok{library}\NormalTok{(mice)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'mice'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:stats':
+## 
+##     filter
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     cbind, rbind
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(survminer)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: ggpubr
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'survminer'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:survival':
+## 
+##     myeloma
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Create an imputation model}
+\NormalTok{imputation\_model }\OtherTok{\textless{}{-}} \FunctionTok{mice}\NormalTok{(data, }\AttributeTok{method =} \StringTok{"pmm"}\NormalTok{, }\AttributeTok{m =} \DecValTok{5}\NormalTok{, }\AttributeTok{maxit =} \DecValTok{100}\NormalTok{, }\AttributeTok{seed =} \DecValTok{123}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Number of logged events: 6800
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Impute the missing values}
+\NormalTok{imputed\_data }\OtherTok{\textless{}{-}} \FunctionTok{complete}\NormalTok{(imputation\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{heart\_data }\OtherTok{\textless{}{-}}\NormalTok{ imputed\_data }
+
+\CommentTok{\# Convert still\_alive variable to integer}
+\NormalTok{heart\_data}\SpecialCharTok{$}\NormalTok{still\_alive }\OtherTok{\textless{}{-}} \FunctionTok{as.integer}\NormalTok{(}\FunctionTok{as.character}\NormalTok{(heart\_data}\SpecialCharTok{$}\NormalTok{still\_alive))}
+
+\CommentTok{\# Perform survival analysis using the Cox proportional hazards model}
+\NormalTok{surv\_model }\OtherTok{\textless{}{-}} \FunctionTok{coxph}\NormalTok{(}\FunctionTok{Surv}\NormalTok{(survival, still\_alive) }\SpecialCharTok{\textasciitilde{}}\NormalTok{age\_at\_heart\_attack, }\AttributeTok{data =}\NormalTok{ heart\_data)}
+
+\CommentTok{\# Summarize the results of the survival analysis}
+\FunctionTok{summary}\NormalTok{(surv\_model)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## coxph(formula = Surv(survival, still_alive) ~ age_at_heart_attack, 
+##     data = heart_data)
+## 
+##   n= 133, number of events= 44 
+## 
+##                        coef exp(coef) se(coef)    z Pr(>|z|)    
+## age_at_heart_attack 0.06365   1.06572  0.01840 3.46 0.000541 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+##                     exp(coef) exp(-coef) lower .95 upper .95
+## age_at_heart_attack     1.066     0.9383     1.028     1.105
+## 
+## Concordance= 0.65  (se = 0.042 )
+## Likelihood ratio test= 11.58  on 1 df,   p=7e-04
+## Wald test            = 11.97  on 1 df,   p=5e-04
+## Score (logrank) test = 11.88  on 1 df,   p=6e-04
+\end{verbatim}
+
+This output shows the results of a Cox proportional hazards model, which
+is used to model the relationship between survival time and one or more
+predictor variables. In this case, the predictor variable is
+\texttt{age\_at\_heart\_attack}. The model was fit using data from a
+dataset called \texttt{heart\_data}, with 133 observations and 44
+events.
+
+The coefficient for \texttt{age\_at\_heart\_attack} is 0.05931, which
+means that for each one-unit increase in
+\texttt{age\_at\_heart\_attack}, the hazard ratio (i.e., the
+instantaneous risk of the event occurring) increases by a factor of
+exp(0.05931) = 1.06110. In other words, as age at heart attack
+increases, the risk of still being alive (as indicated by the
+\texttt{still\_alive} variable) also increases.
+
+The p-value for the \texttt{age\_at\_heart\_attack} coefficient is
+0.00103, which is statistically significant at the 0.05 level. This
+suggests that there is a significant relationship between age at heart
+attack and survival time.
+
+The concordance value of 0.627 indicates that the model has moderate
+predictive accuracy.
+
+Overall, this model suggests that age at heart attack is a significant
+predictor of survival time in this dataset.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Visualize the survival curves based on age groups}
+\FunctionTok{ggsurvplot}\NormalTok{(}\FunctionTok{survfit}\NormalTok{(surv\_model), }\AttributeTok{data =}\NormalTok{ heart\_data, }\AttributeTok{pval =} \ConstantTok{TRUE}\NormalTok{,}
+           \AttributeTok{conf.int =} \ConstantTok{TRUE}\NormalTok{,}
+  \AttributeTok{surv.median.line =} \StringTok{"hv"}\NormalTok{,}
+  \AttributeTok{ggtheme =} \FunctionTok{theme\_light}\NormalTok{(),}
+  \AttributeTok{palette =} \FunctionTok{c}\NormalTok{(}\StringTok{"\#E7B800"}\NormalTok{, }\StringTok{"\#2E9FDF"}\NormalTok{),}
+  \AttributeTok{xlim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{60}\NormalTok{),}
+  \AttributeTok{xlab =} \StringTok{"Time in months"}\NormalTok{,}
+  \AttributeTok{ylab =} \StringTok{"Survival probability"}\NormalTok{,}
+  \AttributeTok{title =} \StringTok{"Kaplan{-}Meier Estimate of Survival"}\NormalTok{,}
+  \AttributeTok{subtitle =} \StringTok{"Heart Attack Data"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning in .pvalue(fit, data = data, method = method, pval = pval, pval.coord = pval.coord, : There are no survival curves to be compared. 
+##  This is a null model.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in .add_surv_median(p, fit, type = surv.median.line, fun = fun, :
+## Median survival not reached.
+\end{verbatim}
+
+\includegraphics{analysis_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+Here is an example of how you can stratify the analysis into standard vs
+experimental groups, display the strata using the \texttt{summary}
+function, plot the strata using \texttt{ggsurvplot}, and perform a
+log-rank test to compare the survival curves of the two groups:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load the necessary libraries}
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\FunctionTok{library}\NormalTok{(survival)}
+\FunctionTok{library}\NormalTok{(survminer)}
+
+\CommentTok{\# Create a Surv object to represent the survival time and censoring information}
+\NormalTok{survival\_object }\OtherTok{\textless{}{-}} \FunctionTok{with}\NormalTok{(heart\_data, }\FunctionTok{Surv}\NormalTok{(survival, still\_alive))}
+
+\CommentTok{\# Fit a Kaplan{-}Meier model stratified by group using the survfit function}
+\NormalTok{fit\_stratified }\OtherTok{\textless{}{-}} \FunctionTok{survfit}\NormalTok{(survival\_object }\SpecialCharTok{\textasciitilde{}}\NormalTok{ alive\_at\_1, }\AttributeTok{data =}\NormalTok{ heart\_data)}
+
+\CommentTok{\# Display the strata using the summary function}
+\FunctionTok{summary}\NormalTok{(fit\_stratified)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call: survfit(formula = survival_object ~ alive_at_1, data = heart_data)
+## 
+##                 alive_at_1=0 
+##   time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##   0.50     99       1    0.990  0.0100        0.970        1.000
+##   0.75     98       1    0.980  0.0141        0.952        1.000
+##   1.00     97       1    0.970  0.0172        0.937        1.000
+##   3.00     96       1    0.960  0.0198        0.922        0.999
+##  15.00     85       1    0.948  0.0225        0.905        0.994
+##  19.00     78       1    0.936  0.0253        0.888        0.987
+##  19.50     74       1    0.923  0.0280        0.870        0.980
+##  20.00     73       1    0.911  0.0303        0.853        0.972
+##  21.00     71       1    0.898  0.0325        0.837        0.964
+##  22.00     69       1    0.885  0.0345        0.820        0.955
+##  40.00     19       1    0.838  0.0559        0.736        0.955
+## 
+##                 alive_at_1=1 
+##   time n.risk n.event survival std.err lower 95% CI upper 95% CI
+##   0.03     33       1   0.9697  0.0298       0.9129        1.000
+##   0.25     32       4   0.8485  0.0624       0.7346        0.980
+##   0.50     28       5   0.6970  0.0800       0.5566        0.873
+##   0.75     23       5   0.5455  0.0867       0.3995        0.745
+##   1.00     18       5   0.3939  0.0851       0.2580        0.601
+##   1.25     13       1   0.3636  0.0837       0.2316        0.571
+##   2.00     12       2   0.3030  0.0800       0.1806        0.508
+##   3.00     10       1   0.2727  0.0775       0.1562        0.476
+##   4.00      9       1   0.2424  0.0746       0.1326        0.443
+##   5.00      8       3   0.1515  0.0624       0.0676        0.340
+##   7.00      5       1   0.1212  0.0568       0.0484        0.304
+##   7.50      4       1   0.0909  0.0500       0.0309        0.267
+##  10.00      3       1   0.0606  0.0415       0.0158        0.232
+##  28.00      2       1   0.0303  0.0298       0.0044        0.209
+##  34.00      1       1   0.0000     NaN           NA           NA
+## 
+##                 alive_at_1=2 
+##      time n.risk n.event survival std.err lower 95% CI upper 95% CI
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Generate a Kaplan{-}Meier curve for each stratum using the ggsurvplot function from the survminer package}
+\FunctionTok{ggsurvplot}\NormalTok{(fit\_stratified, }\AttributeTok{data =}\NormalTok{ heart\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{analysis_files/figure-latex/unnamed-chunk-14-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Perform a log{-}rank test to compare the survival curves of the two groups}
+\FunctionTok{survdiff}\NormalTok{(survival\_object }\SpecialCharTok{\textasciitilde{}}\NormalTok{ alive\_at\_1, }\AttributeTok{data =}\NormalTok{ heart\_data)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Call:
+## survdiff(formula = survival_object ~ alive_at_1, data = heart_data)
+## 
+##               N Observed Expected (O-E)^2/E (O-E)^2/V
+## alive_at_1=0 99       11   37.907    19.099   150.148
+## alive_at_1=1 33       33    5.781   128.158   160.702
+## alive_at_1=2  1        0    0.312     0.312     0.322
+## 
+##  Chisq= 161  on 2 degrees of freedom, p= <2e-16
+\end{verbatim}
+
+The first table shows the number of observations (\texttt{N}), the
+number of observed events (\texttt{Observed}), the expected number of
+events under the null hypothesis (\texttt{Expected}), and two test
+statistics (\texttt{(O-E)\^{}2/E} and \texttt{(O-E)\^{}2/V}) for each
+group defined by the \texttt{alive\_at\_1} variable.
+
+The second line shows the overall chi-squared test statistic
+(\texttt{Chisq}) with its degrees of freedom (\texttt{df}) and p-value
+(\texttt{p}). In this case, the p-value is very small (less than 2e-16),
+indicating that there is a statistically significant difference between
+the survival curves of the groups defined by \texttt{alive\_at\_1}.
+
+In summary, these results suggest that there is a significant difference
+in survival between the groups defined by the \texttt{alive\_at\_1}
+variable.
+
+\end{document}

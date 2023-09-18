@@ -1,0 +1,237 @@
+---
+title: "Analysis"
+output:
+  word_document: default
+  pdf_document: default
+date: "2023-05-29"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# Load required packages
+library(tidyverse)
+library(survival)
+library(janitor)
+```
+
+### Data Import
+
+```{r}
+# Specify the file path
+file_path <- "echocardiogram.data"
+
+# Read the file into a data frame
+data <- read.csv(file_path, header = FALSE, na.strings = "?")
+
+
+column_names <- c("survival", "still-alive", "age-at-heart-attack", "pericardial-effusion", "fractional-shortening", "epss", "lvdd", "wall-motion-score", "wall-motion-index", "mult", "name", "group", "alive-at-1")
+
+colnames(data) <- column_names
+head(data)
+```
+
+In survival analysis, the primary objective is to estimate the survival distribution and analyze the impact of various variables on the time it takes for an event to occur. This type of analysis is commonly used in medical research, epidemiology, and other fields where understanding time-to-event data is crucial. Parameter estimation in survival analysis involves estimating the parameters of the chosen survival distribution, such as the hazard function or survival function, using statistical methods like maximum likelihood estimation.
+
+On the other hand, the Poisson distribution is a probability distribution that models the number of events occurring in a fixed interval of time or space. It is commonly used when dealing with count data, such as the number of occurrences of a specific event. The Poisson distribution estimates the rate of event occurrence based on the average number of events in the given interval. Parameter estimation in the Poisson distribution involves estimating the rate parameter, which represents the average event rate.
+
+While both survival analysis and the Poisson distribution deal with event occurrence, they differ in their approach and focus. Survival analysis focuses on modeling the time until an event occurs and understanding the factors influencing it, whereas the Poisson distribution focuses on estimating the rate of event occurrence in a fixed interval.
+
+```{r}
+# Explore the structure of the dataset
+data = data |> clean_names()
+data <- data %>%
+  mutate_all(~ifelse(. == "?", NA, .))
+
+data <- data %>%
+  select(-name)
+data |> glimpse()
+```
+
+```{r}
+data <- data %>%
+  mutate(
+    still_alive = factor(still_alive),
+    pericardial_effusion = factor(pericardial_effusion),
+    alive_at_1 = factor(alive_at_1),
+    group = factor(group)
+  )
+
+data <- data %>%
+  mutate(
+    survival = as.numeric(survival),
+    age_at_heart_attack = as.numeric(age_at_heart_attack),
+    fractional_shortening = as.numeric(fractional_shortening),
+    epss = as.numeric(epss),
+    lvdd = as.numeric(lvdd),
+    wall_motion_score = as.numeric(wall_motion_score),
+    wall_motion_index = as.numeric(wall_motion_index),
+    mult = as.numeric(mult)
+  )
+
+head(data)
+```
+
+```{r}
+summary(data)
+```
+
+```{r}
+# Calculate the number of missing values in each column
+colSums(is.na(data))
+```
+
+```{r}
+#impute missing values with the median
+data <- data %>%
+  mutate(across(where(is.numeric), ~replace_na(., mean(.))))
+
+```
+
+```{r}
+library(tidyverse)
+library(knitr)
+
+# Assuming `data` is your data frame
+
+# View the summary statistics of numeric columns
+summary_stats <- data %>%
+  select(where(is.numeric)) %>%
+  summary()
+
+# Print the summary statistics in a table using kable
+kable(summary_stats)
+
+```
+
+
+
+```{r}
+# Visualize the distribution of numeric variables
+numeric_vars <- names(data)[sapply(data, is.numeric)]
+# Create histograms for numeric variables
+histograms <- data %>%
+  select(all_of(numeric_vars)) %>%
+  pivot_longer(everything(), names_to = "Variable", values_to = "Value") %>%
+  ggplot(aes(x = Value)) +
+  geom_histogram(fill = "dodgerblue", color = "white") +
+  facet_wrap(~ Variable, scales = "free") +
+  labs(title = "Distribution of Numeric Variables")+theme_minimal()
+
+# Print the histograms
+print(histograms)
+```
+
+
+
+
+```{r}
+# Visualize the distribution of factor variables
+factor_vars <- names(data)[sapply(data, is.factor)]
+
+# Create bar plots for factor variables
+barplots <- data %>%
+  select(all_of(factor_vars)) %>%
+  pivot_longer(everything(), names_to = "Variable", values_to = "Value") %>%
+  ggplot(aes(x = Value)) +
+  geom_bar(fill = "dodgerblue", color = "white") +
+  facet_wrap(~ Variable, scales = "free") +
+  labs(title = "Distribution of Factor Variables")+theme_minimal()
+
+# Print the bar plots
+print(barplots)
+```
+
+### What is the effect of age-at-heart-attack on the survival time of heart attack patients?
+
+```{r results='hide'}
+# Load necessary libraries for survival analysis
+library(survival)
+library(mice)
+library(survminer)
+
+
+# Create an imputation model
+imputation_model <- mice(data, method = "pmm", m = 5, maxit = 100, seed = 123)
+
+# Impute the missing values
+imputed_data <- complete(imputation_model)
+```
+
+```{r}
+heart_data <- imputed_data 
+
+# Convert still_alive variable to integer
+heart_data$still_alive <- as.integer(as.character(heart_data$still_alive))
+
+# Perform survival analysis using the Cox proportional hazards model
+surv_model <- coxph(Surv(survival, still_alive) ~age_at_heart_attack, data = heart_data)
+
+# Summarize the results of the survival analysis
+summary(surv_model)
+
+```
+This output shows the results of a Cox proportional hazards model, which is used to model the relationship between survival time and one or more predictor variables. In this case, the predictor variable is `age_at_heart_attack`. The model was fit using data from a dataset called `heart_data`, with 133 observations and 44 events.
+
+The coefficient for `age_at_heart_attack` is 0.05931, which means that for each one-unit increase in `age_at_heart_attack`, the hazard ratio (i.e., the instantaneous risk of the event occurring) increases by a factor of exp(0.05931) = 1.06110. In other words, as age at heart attack increases, the risk of still being alive (as indicated by the `still_alive` variable) also increases.
+
+The p-value for the `age_at_heart_attack` coefficient is 0.00103, which is statistically significant at the 0.05 level. This suggests that there is a significant relationship between age at heart attack and survival time.
+
+The concordance value of 0.627 indicates that the model has moderate predictive accuracy.
+
+Overall, this model suggests that age at heart attack is a significant predictor of survival time in this dataset.
+
+
+```{r}
+
+# Visualize the survival curves based on age groups
+ggsurvplot(survfit(surv_model), data = heart_data, pval = TRUE,
+           conf.int = TRUE,
+  surv.median.line = "hv",
+  ggtheme = theme_light(),
+  palette = c("#E7B800", "#2E9FDF"),
+  xlim = c(0, 60),
+  xlab = "Time in months",
+  ylab = "Survival probability",
+  title = "Kaplan-Meier Estimate of Survival",
+  subtitle = "Heart Attack Data")
+```
+
+
+
+
+Here is an example of how you can stratify the analysis into standard vs experimental groups, display the strata using the `summary` function, plot the strata using `ggsurvplot`, and perform a log-rank test to compare the survival curves of the two groups:
+
+```{r}
+# Load the necessary libraries
+library(tidyverse)
+library(survival)
+library(survminer)
+
+# Create a Surv object to represent the survival time and censoring information
+survival_object <- with(heart_data, Surv(survival, still_alive))
+
+# Fit a Kaplan-Meier model stratified by group using the survfit function
+fit_stratified <- survfit(survival_object ~ alive_at_1, data = heart_data)
+
+# Display the strata using the summary function
+summary(fit_stratified)
+```
+
+```{r}
+
+# Generate a Kaplan-Meier curve for each stratum using the ggsurvplot function from the survminer package
+ggsurvplot(fit_stratified, data = heart_data)
+```
+
+
+```{r}
+# Perform a log-rank test to compare the survival curves of the two groups
+survdiff(survival_object ~ alive_at_1, data = heart_data)
+```
+
+ The first table shows the number of observations (`N`), the number of observed events (`Observed`), the expected number of events under the null hypothesis (`Expected`), and two test statistics (`(O-E)^2/E` and `(O-E)^2/V`) for each group defined by the `alive_at_1` variable.
+
+The second line shows the overall chi-squared test statistic (`Chisq`) with its degrees of freedom (`df`) and p-value (`p`). In this case, the p-value is very small (less than 2e-16), indicating that there is a statistically significant difference between the survival curves of the groups defined by `alive_at_1`.
+
+In summary, these results suggest that there is a significant difference in survival between the groups defined by the `alive_at_1` variable.
+

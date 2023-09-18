@@ -1,0 +1,3 @@
+"0",""
+"0","# Generate a Kaplan-Meier curve for each stratum using the ggsurvplot function from the survminer package"
+"0","ggsurvplot(fit_stratified, data = heart_data)"
